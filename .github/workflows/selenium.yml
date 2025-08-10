@@ -28,4 +28,4 @@ jobs:
         uses: nanasess/setup-chromedriver@v2
 
       - name: Run script
-        run: python /Users/dv/Projects/BLVD_fetcher/main.py
+        run: python main.py
