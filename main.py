@@ -5,12 +5,21 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import re
 from datetime import datetime
+import shutil
 
 web = "https://verisresidential.com/jersey-city-nj-apartments/the-blvd-collection/"
-chromedriver_path = "/Users/dv/Projects/LearnSelenium/chromedriver-mac-x64/chromedriver"
+chromedriver_path = shutil.which("chromedriver")  # Use chromedriver from PATH
+
+# Add headless Chrome options
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument("--headless=new")  # Use new headless mode (Chrome 109+)
+chrome_options.add_argument("--disable-gpu")
+chrome_options.add_argument("--window-size=1920,1080")
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--disable-dev-shm-usage")
 
 service = Service(executable_path=chromedriver_path)
-driver = webdriver.Chrome(service=service)
+driver = webdriver.Chrome(service=service, options=chrome_options)
 
 driver.get(web)
 wait = WebDriverWait(driver, 10)
