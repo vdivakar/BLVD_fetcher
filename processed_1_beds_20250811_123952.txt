@@ -1,0 +1,22 @@
+{'Unit': 'M1-2111', 'Price': '3325', 'Available': 'Oct. 9', 'SQFT': '723'}
+{'Unit': 'M1-1410', 'Price': '3470', 'Available': 'Sep. 10', 'SQFT': '689'}
+{'Unit': 'M1-3011', 'Price': '3520', 'Available': 'Oct. 27', 'SQFT': '723'}
+{'Unit': 'M1-1013', 'Price': '3565', 'Available': 'Sep. 8', 'SQFT': '830'}
+{'Unit': 'M1-1013', 'Price': '3565', 'Available': 'Sep. 8', 'SQFT': '830'}
+{'Unit': 'M1-2807', 'Price': '3655', 'Available': 'Immediate', 'SQFT': '776'}
+{'Unit': 'M1-1004', 'Price': '3665', 'Available': 'Sep. 4', 'SQFT': '709'}
+{'Unit': 'M1-1504', 'Price': '3685', 'Available': 'Sep. 3', 'SQFT': '709'}
+{'Unit': 'M1-3311', 'Price': '3700', 'Available': 'Immediate', 'SQFT': '723'}
+{'Unit': 'M1-2306', 'Price': '3705', 'Available': 'Sep. 2', 'SQFT': '808'}
+{'Unit': 'M1-2104', 'Price': '3750', 'Available': 'Aug. 28', 'SQFT': '709'}
+{'Unit': 'M1-1113', 'Price': '3765', 'Available': 'Sep. 10', 'SQFT': '830'}
+{'Unit': 'M1-1113', 'Price': '3765', 'Available': 'Sep. 10', 'SQFT': '830'}
+{'Unit': 'M1-3413', 'Price': '3860', 'Available': 'Oct. 21', 'SQFT': '830'}
+{'Unit': 'M1-3413', 'Price': '3860', 'Available': 'Oct. 21', 'SQFT': '830'}
+{'Unit': 'M1-3607', 'Price': '3860', 'Available': 'Sep. 30', 'SQFT': '776'}
+{'Unit': 'M1-0402', 'Price': '3895', 'Available': 'Immediate', 'SQFT': '868'}
+{'Unit': 'M2-2103', 'Price': '4005', 'Available': 'Immediate', 'SQFT': '759'}
+{'Unit': 'M2-2803', 'Price': '4030', 'Available': 'Immediate', 'SQFT': '759'}
+{'Unit': 'M2-0811', 'Price': '4075', 'Available': 'Sep. 23', 'SQFT': '800'}
+{'Unit': 'M2-3403', 'Price': '4085', 'Available': 'Immediate', 'SQFT': '759'}
+{'Unit': 'M2-2207', 'Price': '4250', 'Available': 'Sep. 18', 'SQFT': '805'}

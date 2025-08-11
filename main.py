@@ -6,7 +6,6 @@ from selenium.webdriver.support import expected_conditions as EC
 import re
 from datetime import datetime
 from zoneinfo import ZoneInfo
-import pytz
 import shutil
 
 web = "https://verisresidential.com/jersey-city-nj-apartments/the-blvd-collection/"
