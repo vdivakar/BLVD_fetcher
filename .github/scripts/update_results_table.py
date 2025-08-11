@@ -22,12 +22,11 @@ with open(latest_csv, newline="") as f:
 
 # Prepare markdown table rows for the new results
 header = "| Date & Time | Unit | Price | Available | SQFT |\n|---|---|---|---|---|"
-rows_sorted = sorted(rows, key=lambda r: r['Unit'])
 
 table_rows = []
 m2_divider_inserted = False
 first_row = True
-for r in rows_sorted:
+for r in rows:
     # Insert divider before first M2 unit
     if not m2_divider_inserted and r['Unit'].startswith('M2'):
         table_rows.append('|---|---|---|---|---|')
