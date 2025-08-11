@@ -1,0 +1,39 @@
+name: Fetch and Update Table
+
+on:
+  schedule:
+    - cron: '0 */4 * * *'
+  workflow_dispatch:
+
+jobs:
+  run-script-and-update-table:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          # Add any requirements here if needed
+
+      - name: Run main.py and save output
+        run: |
+          python main.py > output.txt
+
+      - name: Update results table
+        run: |
+          python .github/scripts/update_results_table.py
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add results.md
+          git commit -m "Update results table [skip ci]" || echo "No changes to commit"
+          git push

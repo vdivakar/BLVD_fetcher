@@ -177,6 +177,12 @@ for entry in All_1_BEDS:
 for entry in PROCESSED_1_BEDS:
     print(entry)    
 
+# Filter out units with "MN-" and "MS-" prefixes
+PROCESSED_1_BEDS = [
+    entry for entry in PROCESSED_1_BEDS
+    if entry.get("Unit", "").startswith("M1-") or entry.get("Unit", "").startswith("M2-")
+]
+
 def unit_prefix_key(unit):
     if unit.startswith("M1-"):
         return 0
@@ -232,3 +238,5 @@ with open(csv_filename, "w", newline="") as f:
         writer.writerow({field: entry.get(field, "") for field in csv_fields})
 
 
+## TODO: clean the Price column - remove 'From $' prefix and commas
+## TODO: sort by Price in ascending order
