@@ -15,16 +15,20 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version: '3.11'
 
-      - name: Install dependencies
-        run: |
-          pip install --upgrade pip
-          # Add any requirements here if needed
+      - name: Install pip dependencies
+        run: pip install selenium
+
+      - name: Install Google Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Install ChromeDriver
+        uses: nanasess/setup-chromedriver@v2
 
       - name: Run main.py and save output
         run: |
-          python main.py > output.txt
+          python main.py
 
       - name: Update results table
         run: |
