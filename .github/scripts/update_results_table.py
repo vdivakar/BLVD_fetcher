@@ -13,21 +13,17 @@ latest_csv = max(csv_files, key=os.path.getmtime)
 basename = os.path.basename(latest_csv)
 date_str = basename.replace("processed_1_beds_", "").replace(".csv", "")
 dt = datetime.datetime.strptime(date_str, "%Y%m%d_%H%M%S")
+date_stamp = dt.strftime('%Y-%m-%d %H:%M:%S')
 
 # Read CSV content
 with open(latest_csv, newline="") as f:
     reader = csv.DictReader(f)
     rows = list(reader)
 
-# Prepare improved markdown table rows
-header = "| Date & Time | Unit | Price | Available | SQFT |\n|---|---|---|---|---|\n"
-results_path = 'results.md'
-
-# Sort rows by Unit to ensure M1s come before M2s
+# Prepare markdown table rows for the new results
+header = "| Date & Time | Unit | Price | Available | SQFT |\n|---|---|---|---|---|"
 rows_sorted = sorted(rows, key=lambda r: r['Unit'])
 
-
-# Only show Date & Time in the first row, blank for the rest
 table_rows = []
 m2_divider_inserted = False
 first_row = True
@@ -36,27 +32,30 @@ for r in rows_sorted:
     if not m2_divider_inserted and r['Unit'].startswith('M2'):
         table_rows.append('|---|---|---|---|---|')
         m2_divider_inserted = True
-    date_cell = dt.strftime('%Y-%m-%d %H:%M:%S') if first_row else ''
+    date_cell = date_stamp if first_row else ''
     table_rows.append(f"| {date_cell} | {r['Unit']} | {r['Price']} | {r['Available']} | {r['SQFT']} |")
     first_row = False
 
-# Read existing content (if any), but remove old table rows for this timestamp
+new_result_block = header + '\n' + '\n'.join(table_rows)
+
+results_path = 'results.md'
+
+# Read existing content and split into blocks
 if os.path.exists(results_path):
     with open(results_path, 'r') as f:
         content = f.read()
-    # Remove any rows with this timestamp to avoid duplicates
-    lines = content.split('\n')
-    lines = [line for line in lines if dt.strftime('%Y-%m-%d %H:%M:%S') not in line and not (line.strip() == '|---|---|---|---|---|')]
-    # Remove old header if present
-    if lines and lines[0].startswith('| Date & Time'):
-        lines = lines[2:]  # remove header and divider
+    # Split into blocks by header line
+    blocks = content.split(header)
+    # Remove any blocks that contain the current timestamp (to avoid duplicates)
+    blocks = [b for b in blocks if date_stamp not in b]
+    # Remove empty blocks
+    blocks = [b.strip('\n') for b in blocks if b.strip('\n')]
 else:
-    lines = []
+    blocks = []
 
-# Compose new content
-content = header + '\n'.join(table_rows) + '\n'
-if lines:
-    content += '\n' + '\n'.join(lines).strip() + '\n'
+# Compose new content: new results first, then previous blocks
+all_blocks = [new_result_block] + [header + '\n' + b for b in blocks]
+final_content = '\n\n'.join(all_blocks) + '\n'
 
 with open(results_path, 'w') as f:
-    f.write(content)
+    f.write(final_content)
