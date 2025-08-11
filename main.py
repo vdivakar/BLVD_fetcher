@@ -5,6 +5,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import re
 from datetime import datetime
+from zoneinfo import ZoneInfo
+import pytz
 import shutil
 
 web = "https://verisresidential.com/jersey-city-nj-apartments/the-blvd-collection/"
@@ -223,7 +225,7 @@ for entry in PROCESSED_1_BEDS_SORTED:
 
 # Save to .txt and .csv with datetime in filename
 import csv
-now_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+now_str = datetime.now(ZoneInfo("America/New_York")).strftime("%Y%m%d_%H%M%S")
 txt_filename = f"processed_1_beds_{now_str}.txt"
 csv_filename = f"processed_1_beds_{now_str}.csv"
 with open(txt_filename, "w") as f:
