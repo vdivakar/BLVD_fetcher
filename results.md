@@ -1,5 +1,9 @@
 | Date & Time | Unit | Price | Available | SQFT |
 |---|---|---|---|---|
+
+
+| Date & Time | Unit | Price | Available | SQFT |
+|---|---|---|---|---|
 | 2025-08-11 17:30:38 | M1-0402 | 3895 | Immediate | 868 |
 |  | M1-1004 | 3665 | Sep. 4 | 709 |
 |  | M1-1013 | 3565 | Sep. 8 | 830 |
