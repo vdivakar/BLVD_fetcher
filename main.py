@@ -123,6 +123,9 @@ for row in rows:
                         unit_val = unit_labels[1].text.strip() if len(unit_labels) > 1 else ""
                         price_val = unit_labels[3].text.strip() if len(unit_labels) > 3 else ""
                         avail_val = unit_labels[5].text.strip() if len(unit_labels) > 5 else ""
+                        # Remove 'From $' prefix and commas from price
+                        price_val = re.sub(r'^From \$|,', '', price_val).strip()
+
                         print({
                             "UNIT": unit_val,
                             "PRICE": price_val,
@@ -195,25 +198,22 @@ def unit_prefix_key(unit):
     else:
         return 4
 
-def parse_avail_date(avail):
-    # Try to parse date like 'Sep. 8', 'Oct. 9', 'Immediate', etc.
-    if not avail or "Immediate" in avail:
-        return datetime.min
-    # Remove dot after month if present
-    avail = avail.replace('.', '')
+def parse_price(price):
+    # Remove any non-digit or non-dot characters (e.g., '$', ',', 'From ')
+    if not price:
+        return float('inf')
+    price = re.sub(r'[^\d.]', '', price)
     try:
-        # Assume current year
-        dt = datetime.strptime(avail + f" {datetime.now().year}", "%b %d %Y")
-        return dt
+        return float(price)
     except Exception:
-        return datetime.max
+        return float('inf')
 
-# Sort by unit prefix, then by availability date
+# Sort by unit prefix, then by price (ascending)
 PROCESSED_1_BEDS_SORTED = sorted(
     PROCESSED_1_BEDS,
     key=lambda x: (
         unit_prefix_key(x["Unit"]),
-        parse_avail_date(x["Available"])
+        parse_price(x["Price"])
     )
 )
 
