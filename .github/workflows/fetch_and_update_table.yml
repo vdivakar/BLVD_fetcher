@@ -1,5 +1,8 @@
 name: Fetch and Update Table
 
+permissions:
+  contents: write
+
 on:
   schedule:
     - cron: '0 */4 * * *'
