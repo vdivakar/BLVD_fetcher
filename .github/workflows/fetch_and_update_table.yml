@@ -37,6 +37,35 @@ jobs:
         run: |
           python .github/scripts/update_results_table.py
 
+      - name: Check if results.md has changed
+        run: |
+          python .github/scripts/check_results_changes.py
+
+      - name: Check for changes summary
+        id: changes
+        run: |
+          if [ -f change_summary.txt ]; then
+            echo "changes=true" >> $GITHUB_OUTPUT
+            echo "body<<EOF" >> $GITHUB_OUTPUT
+            cat change_summary.txt >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          else
+            echo "changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Send email if changes detected
+        if: steps.changes.outputs.changes == 'true'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "BLVD Apartment Listing Changed"
+          to: divakarv96@gmail.com
+          from: BLVD Bot
+          body: ${{ steps.changes.outputs.body }}
+
       - name: Commit and push changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

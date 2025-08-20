@@ -174,12 +174,12 @@ for row in rows:
 
 driver.quit()
 
-print("All 1 Bed / 1 Bath entries:")
-for entry in All_1_BEDS:
-    print(entry)
+# print("All 1 Bed / 1 Bath entries:")
+# for entry in All_1_BEDS:
+#     print(entry)
 
-for entry in PROCESSED_1_BEDS:
-    print(entry)    
+# for entry in PROCESSED_1_BEDS:
+#     print(entry)
 
 # Filter out units with "MN-" and "MS-" prefixes
 PROCESSED_1_BEDS = [
@@ -238,6 +238,3 @@ with open(csv_filename, "w", newline="") as f:
     for entry in PROCESSED_1_BEDS_SORTED:
         writer.writerow({field: entry.get(field, "") for field in csv_fields})
 
-
-## TODO: clean the Price column - remove 'From $' prefix and commas
-## TODO: sort by Price in ascending order
