@@ -62,7 +62,7 @@ jobs:
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           subject: "BLVD Apartment Listing Changed"
-          to: divakarv96@gmail.com
+          to: ${{ secrets.EMAIL_RECIPIENTS }}
           from: BLVD Bot
           body: ${{ steps.changes.outputs.body }}
 
